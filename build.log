@@ -7,39 +7,16 @@ Logfile initialized
 [TRACE] adb devices returned 1 devices/emulators
 [TRACE] adb devices returned 1 devices/emulators
 [TRACE] adb devices returned 1 devices/emulators
-[TRACE] adb devices returned 1 devices/emulators
-[TRACE] adb devices returned 1 devices/emulators
-[TRACE] adb devices returned 1 devices/emulators
-[TRACE] adb devices returned 1 devices/emulators
-[TRACE] adb devices returned 1 devices/emulators
-[TRACE] adb devices returned 1 devices/emulators
-[TRACE] adb devices returned 1 devices/emulators
-[TRACE] adb devices returned 1 devices/emulators
-[DEBUG] Device connected... (waited 50 seconds)
-[DEBUG] waited 50.171787 seconds on emulator to get ready
+[DEBUG] Device connected... (waited 10 seconds)
+[DEBUG] waited 10.047700 seconds on emulator to get ready
 [INFO] Waiting for the Android Emulator to become available
 [DEBUG] com.zuehlke.zwarm installed? True
 [INFO] Fastdev server running, deploying in Fastdev mode
 [INFO] Copying CommonJS modules...
 [INFO] Copying project resources..
-[INFO] Detected change in tiapp.xml, or assets deleted. Forcing full re-build...
-[TRACE] COPYING CREATED FILE: /home/swarm/Zwarm/zwarm-frontend/Resources/util/Countdown.js => /home/swarm/Zwarm/zwarm-frontend/build/android/bin/assets/Resources/util/Countdown.js
-[TRACE] COPYING CREATED FILE: /home/swarm/Zwarm/zwarm-frontend/Resources/network/SwarmClient.js => /home/swarm/Zwarm/zwarm-frontend/build/android/bin/assets/Resources/network/SwarmClient.js
-[TRACE] COPYING CREATED FILE: /home/swarm/Zwarm/zwarm-frontend/Resources/network/RestClient.js => /home/swarm/Zwarm/zwarm-frontend/build/android/bin/assets/Resources/network/RestClient.js
-[TRACE] COPYING CREATED FILE: /home/swarm/Zwarm/zwarm-frontend/Resources/KS_nav_ui.png => /home/swarm/Zwarm/zwarm-frontend/build/android/bin/assets/Resources/KS_nav_ui.png
-[TRACE] COPYING CREATED FILE: /home/swarm/Zwarm/zwarm-frontend/Resources/swarmview.js => /home/swarm/Zwarm/zwarm-frontend/build/android/bin/assets/Resources/swarmview.js
-[TRACE] COPYING CREATED FILE: /home/swarm/Zwarm/zwarm-frontend/Resources/app.js => /home/swarm/Zwarm/zwarm-frontend/build/android/bin/assets/Resources/app.js
-[TRACE] COPYING CREATED FILE: /home/swarm/Zwarm/zwarm-frontend/Resources/ui/MapView.js => /home/swarm/Zwarm/zwarm-frontend/build/android/bin/assets/Resources/ui/MapView.js
-[TRACE] COPYING CREATED FILE: /home/swarm/Zwarm/zwarm-frontend/Resources/ui/SampleView.js => /home/swarm/Zwarm/zwarm-frontend/build/android/bin/assets/Resources/ui/SampleView.js
-[TRACE] COPYING CREATED FILE: /home/swarm/Zwarm/zwarm-frontend/Resources/ui/SwarmBrowser.js => /home/swarm/Zwarm/zwarm-frontend/build/android/bin/assets/Resources/ui/SwarmBrowser.js
-[TRACE] COPYING CREATED FILE: /home/swarm/Zwarm/zwarm-frontend/Resources/ui/MainView.js => /home/swarm/Zwarm/zwarm-frontend/build/android/bin/assets/Resources/ui/MainView.js
-[TRACE] COPYING CREATED FILE: /home/swarm/Zwarm/zwarm-frontend/Resources/ui/InitView.js => /home/swarm/Zwarm/zwarm-frontend/build/android/bin/assets/Resources/ui/InitView.js
-[TRACE] COPYING CREATED FILE: /home/swarm/Zwarm/zwarm-frontend/Resources/ui/SwarmView.js => /home/swarm/Zwarm/zwarm-frontend/build/android/bin/assets/Resources/ui/SwarmView.js
-[TRACE] COPYING CREATED FILE: /home/swarm/Zwarm/zwarm-frontend/Resources/ui/SwarmDefinitionView.js => /home/swarm/Zwarm/zwarm-frontend/build/android/bin/assets/Resources/ui/SwarmDefinitionView.js
-[TRACE] COPYING CREATED FILE: /home/swarm/Zwarm/zwarm-frontend/Resources/android/appicon.png => /home/swarm/Zwarm/zwarm-frontend/build/android/bin/assets/Resources/appicon.png
-[TRACE] COPYING CREATED FILE: /home/swarm/Zwarm/zwarm-frontend/Resources/android/default.png => /home/swarm/Zwarm/zwarm-frontend/build/android/bin/assets/Resources/default.png
-[TRACE] COPYING CREATED FILE: /home/swarm/Zwarm/zwarm-frontend/Resources/KS_nav_views.png => /home/swarm/Zwarm/zwarm-frontend/build/android/bin/assets/Resources/KS_nav_views.png
-[TRACE] Generating Java Classes
+[TRACE] COPYING CREATED FILE: /home/swarm/Titanium Studio Workspace/zwarm-frontend/Resources/ui/MapView.js => /home/swarm/Titanium Studio Workspace/zwarm-frontend/build/android/bin/assets/Resources/ui/MapView.js
+[TRACE] COPYING MODIFIED FILE: /home/swarm/Titanium Studio Workspace/zwarm-frontend/Resources/ui/TabContainer.js => /home/swarm/Titanium Studio Workspace/zwarm-frontend/build/android/bin/assets/Resources/ui/TabContainer.js
+[INFO] Tiapp.xml unchanged, skipping class generation
 [DEBUG] Processing Android resource drawables
 [TRACE] COPYING FILE: /home/swarm/Zwarm/zwarm-frontend/Resources/android/images/res-notlong-land-ldpi/default.png => /home/swarm/Zwarm/zwarm-frontend/build/android/res/drawable-notlong-land-ldpi/default_d44e27d97b.png
 [TRACE] COPYING FILE: /home/swarm/Zwarm/zwarm-frontend/Resources/android/images/res-long-port-ldpi/default.png => /home/swarm/Zwarm/zwarm-frontend/build/android/res/drawable-long-port-ldpi/default_d44e27d97b.png
