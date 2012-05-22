@@ -1,8 +1,10 @@
 function MainView() {
 	
-	var self = Ti.UI.createTabGroup({
+	var self = Ti.UI.createWindow({
 		backgroundColor:'#ffffff'
 	});
+	
+	
 	
 	var MapView = require('MapView');
 	var SwarmDefinitionView = require('SwarmDefinitionView');
