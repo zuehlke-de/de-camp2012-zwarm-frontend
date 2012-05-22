@@ -20,11 +20,13 @@ var tab1 = Titanium.UI.createTab({
 	title: 'MyTitle',
     window: win1	
 });
+win1.containingTab = tab1;
 
 var tab2 = Titanium.UI.createTab({
 	title: 'MyTitle2',
     window: win2	
 });
+win2.containingTab = tab2;
 
 
 //
