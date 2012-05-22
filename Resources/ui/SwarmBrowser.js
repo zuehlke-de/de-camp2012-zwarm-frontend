@@ -8,13 +8,12 @@ function SwarmBrowser(){
 	
 	self.add(table);
 	
-	var SampleView = require('/ui/SampleView');
-	var sampleView = new SampleView();
-
+	var SwarmListView = require('/ui/SwarmListView');
+	
 	self.addEventListener('click', function(e){
-		alert('You clicked row '+e.index);
-		
-		self.containingTab.open(sampleView);
+		var swarmListView = new SwarmListView(e.rowData);
+		swarmListView.containingTab = self.containingTab;
+		self.containingTab.open(swarmListView);
 	});
 	
 	var SwarmClient = require('/network/SwarmClient');
