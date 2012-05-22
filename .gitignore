@@ -1,1 +1,4 @@
-build/iphonebuild.log
+build/iphone
+build.log
+build/android
+

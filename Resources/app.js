@@ -11,7 +11,7 @@ var openInitView = function() {
 }
 var openMainView = function() {
 	Ti.API.debug(Ti.App.Properties.getString('user.id') + " " + Ti.App.Properties.getString('user.name'));
-	var MainView = require('ui/TabContainer');
+	var MainView = require('ui/MainView');
 	var view = new MainView();
 	view.open();
 }
