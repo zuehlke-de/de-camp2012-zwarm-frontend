@@ -5,23 +5,29 @@ function MainView() {
 	});
 	
 	var MapView = require('MapView');
-	var SwarmDefinitionView = require('SwarmDefinitionView');
-	var SampleView = require('SampleView');
-
+	var mapView = new MapView();
 	var mapTab = Ti.UI.createTab({
 		title: 'Map',
-		window: new MapView()
+		window: mapView
 	});
+	mapView.containingTab = mapTab;
 	
+	var SwarmDefinitionView = require('SwarmDefinitionView');
+	var swarmDefinitionView = new SwarmDefinitionView();
 	var newSwarmTab = Ti.UI.createTab({
 		title: 'New Zwarm',
-		window: new SwarmDefinitionView()
+		window: swarmDefinitionView
 	});
+	swarmDefinitionView.containingTab = newSwarmTab;
 	
+	var SwarmBrowser = require('SwarmBrowser');
+	var swarmBrowser = new SwarmBrowser();
 	var allSwarmsTab = Ti.UI.createTab({
-		title: 'All Zwarms',
-		window: new SampleView()
+		title: 'All Swarms',
+		window: swarmBrowser
 	});
+	swarmBrowser.containingTab = allSwarmsTab;
+	
 	
 	self.addTab(mapTab);
 	self.addTab(newSwarmTab);
