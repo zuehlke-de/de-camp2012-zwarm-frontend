@@ -22,12 +22,14 @@ var countdownSeconds = swarmDefinition.countdownSeconds;      // Wait time in se
 var zwarmDuration = swarmDefinition.durationSeconds;
 
 var durationString;
-if(swarmDefinition.durationSeconds==60){
+if(swarmDefinition.durationSeconds==1){
+	durationString = '1 Second';
+} else if(swarmDefinition.durationSeconds==60){
 	durationString = '1 Minute';
 } else if(swarmDefinition.durationSeconds>59 && swarmDefinition.durationSeconds%60==0){
-	durationString = swarmDefinition.durationSeconds/60 + ' Minuten';
+	durationString = swarmDefinition.durationSeconds/60 + ' Minutes';
 } else {
-	durationString = swarmDefinition.durationSeconds + ' Sekunden';
+	durationString = swarmDefinition.durationSeconds + ' Seconds';
 }
 
 
@@ -166,11 +168,6 @@ var startZwarm = function(){
 	).start();
 }
         
-//my_timer.set(secToMin(countdownSeconds));
-// seconds are calculated into minutes and vice versa in the funnction => refactor
-//my_timer.start();
-
-
 
 swarmWin.add(swarmLabel);
 swarmWin.add(countdownLabel);

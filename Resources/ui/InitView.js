@@ -19,7 +19,7 @@ function InitView() {
 	self.add(containerView);
 	
 	var logoImage = Titanium.UI.createImageView({
-	  image:'../zwarm-logo.png',
+	  image:'/zwarm-logo.png',
 	  top: '7%'
 	});
 	containerView.add(logoImage);
