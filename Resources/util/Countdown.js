@@ -1,11 +1,6 @@
 // initiate new timer object (licensed MIT. copyright Daniel Tamas http://rborn.info)
 
         
-        //var secToMin = function(seconds){
-        //	return Math.floor(seconds/60),seconds-60*(Math.floor(seconds/60));
-        //};
-        
-        
         var countDown =  function( m , s, fn_tick, fn_end  ) {
                 return {
                         total_sec:m*60+s,
