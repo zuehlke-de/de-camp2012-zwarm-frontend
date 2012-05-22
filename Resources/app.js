@@ -9,8 +9,9 @@ var tabGroup = Titanium.UI.createTabGroup();
 // view creation example
 //
 var SampleView = require('ui/SampleView');
+var SwarmBrowser = require('ui/SwarmBrowser');
 
-var win1 = new SampleView();
+var win1 = new SwarmBrowser();
 
 var win2 = new SampleView();
 
