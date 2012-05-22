@@ -1,5 +1,5 @@
 function RestClient(){
-	var baseUrl = 'http://google.com'; // TODO: Use real webservice URL
+	var baseUrl = 'http://ec2-54-247-155-88.eu-west-1.compute.amazonaws.com:4711'; 
 	
 	return {
 		get: function (path, parserCallback) {
@@ -12,11 +12,11 @@ function RestClient(){
 				},
 				onerror: function(e) {
 					Ti.API.debug(e.error);
-					alert('Error!');
+					alert('Error(' + this.status +'): ' + e.error);
 				},
 				timeout:5000
 			});
-			xhr.open('GET', baseUrl + '?q=zuehlke');
+			xhr.open('GET', baseUrl + 'path');
 			xhr.send();
 		},
 		
@@ -30,13 +30,13 @@ function RestClient(){
 				},
 				onerror: function(e) {
 					Ti.API.debug(e.error);
-					alert('Error!');
+					alert('Error(' + this.status +'): ' + e.error + '; ' + this.responseText);
 				},
 				timeout:5000
 			});
 			xhr.open('POST', baseUrl + path);
 			xhr.setRequestHeader('Content-Type', 'application/json');
-			xhr.send(jsonData);
+			xhr.send(JSON.stringify(jsonData));
 		},
 		
 		put: function (path, jsonData, parserCallback) {
@@ -49,13 +49,13 @@ function RestClient(){
 				},
 				onerror: function(e) {
 					Ti.API.debug(e.error);
-					alert('Error!');
+					alert('Error(' + this.status +'): ' + e.error);
 				},
 				timeout:5000
 			});
 			xhr.open('PUT', baseUrl + path);
 			xhr.setRequestHeader('Content-Type', 'application/json');
-			xhr.send(jsonData);
+			xhr.send(JSON.stringify(jsonData));
 		}
 	};
 };
