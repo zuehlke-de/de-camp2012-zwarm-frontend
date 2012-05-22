@@ -28,10 +28,18 @@ function MainView() {
 	});
 	swarmBrowser.containingTab = allSwarmsTab;
 	
+	var SwarmView = require('/ui/SwarmView');
+	var swarmView = new SwarmView();
+	var swarmViewTab = Ti.UI.createTab({
+		title: 'SwarmView',
+		window: swarmView
+	});
+	swarmView.containingTab = swarmViewTab;
 	
 	self.addTab(mapTab);
 	self.addTab(newSwarmTab);
 	self.addTab(allSwarmsTab);
+	self.addTab(swarmViewTab);
 	
 	return self;
 	
