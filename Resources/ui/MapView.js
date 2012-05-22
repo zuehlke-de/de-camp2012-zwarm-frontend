@@ -1,5 +1,7 @@
 function MapView() {
 	
+	// var LocationHelper = require('lib/LocationHelper');
+	
 	//create object instance
 	var self = Ti.UI.createWindow({
 		backgroundColor:'#ffffff'
@@ -30,6 +32,24 @@ function MapView() {
 		userLocation : true,
 		annotations : [myLocationAnnotation]
 	}); 
+	
+
+	// PUBLIC FUNCTION
+	/**
+	 * @param {Object} a collection of users nearby
+	 */
+	self.setNearbyUsers = function (users) {
+		
+	};
+	
+	// register for location changes
+	Ti.App.addEventListener('zwarm.location.updated', function(coords) {
+		mapview.setLocation({
+			latitude : coords.latitude,
+			longitude : coords.longitude,
+			animate : true
+		}); 
+	});
 
 	
 	self.add(mapview);
