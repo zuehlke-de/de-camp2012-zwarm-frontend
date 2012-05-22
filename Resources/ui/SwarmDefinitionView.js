@@ -45,15 +45,22 @@ function SwarmDefinitionView() {
 									var sendObject = {};
 									if(nameTextField.value.length>0 && taskTextField.value.length>0){
 										sendObject.active = true;
-										sendObject.name = nameTextField.value;
+										sendObject.title = nameTextField.value;
 										sendObject.task = taskTextField.value;
-										sendObject.from = "19.02.2012 10:00";
-										sendObject.until = "18.03.2012 20:00";
-										sendObject.wait = 180;
+										sendObject.validFrom = "19.02.2012 10:00";
+										sendObject.validUntil = "18.03.2012 20:00";
+										sendObject.waitingTime = 180;
 										sendObject.duration = 60;
 										sendObject.minParticipants = 30;
 										sendObject.maxParticipants = 60;
-										alert(sendObject);
+
+										var SwarmClient = require('network/SwarmClient');
+										var my_swarmClient = new SwarmClient();
+										
+										my_swarmClient.addSwarmDefinition(sendObject,function(){
+											alert('Saved');
+										});
+										
 									} else {
 										alert('Please enter all relevant data.');
 									}
