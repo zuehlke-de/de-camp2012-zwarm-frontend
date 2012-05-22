@@ -10,10 +10,13 @@ var tabGroup = Titanium.UI.createTabGroup();
 //
 var SampleView = require('ui/SampleView');
 var SwarmBrowser = require('ui/SwarmBrowser');
+var MapView = require('ui/MapView');
 
 var win1 = new SwarmBrowser();
 
 var win2 = new SampleView();
+
+var mapView = new MapView();
 
 
 var tab1 = Titanium.UI.createTab({
@@ -26,12 +29,18 @@ var tab2 = Titanium.UI.createTab({
     window: win2	
 });
 
+var mapTab = Titanium.UI.createTab({
+	title: 'Map',
+    window: mapView	
+});
+
 
 //
 //  add tabs
 //
 tabGroup.addTab(tab1);  
-tabGroup.addTab(tab2);  
+tabGroup.addTab(tab2);
+tabGroup.addTab(mapTab);
 
 
 // open tab group
