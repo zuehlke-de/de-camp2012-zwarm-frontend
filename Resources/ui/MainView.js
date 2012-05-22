@@ -4,34 +4,24 @@ function MainView() {
 		backgroundColor:'#ffffff'
 	});
 	
-	var MapView = require('MapView');
-	var mapView = new MapView();
 	var mapTab = Ti.UI.createTab({
-		title: 'Map',
-		window: mapView
+		title: 'Map'
 	});
-	mapView.containingTab = mapTab;
-	
-	var SwarmDefinitionView = require('SwarmDefinitionView');
-	var swarmDefinitionView = new SwarmDefinitionView();
 	var newSwarmTab = Ti.UI.createTab({
-		title: 'New Zwarm',
-		window: swarmDefinitionView
+		title: 'New Zwarm'
 	});
-	swarmDefinitionView.containingTab = newSwarmTab;
-	
-	var SwarmBrowser = require('SwarmBrowser');
-	var swarmBrowser = new SwarmBrowser();
 	var allSwarmsTab = Ti.UI.createTab({
-		title: 'All Swarms',
-		window: swarmBrowser
+		title: 'All Swarms'
 	});
-	swarmBrowser.containingTab = allSwarmsTab;
 	
 	
 	self.addTab(mapTab);
 	self.addTab(newSwarmTab);
 	self.addTab(allSwarmsTab);
+	
+	self.navigateTo = function (view) {
+		self.getActiveTab().window = view;
+	}
 	
 	return self;
 	

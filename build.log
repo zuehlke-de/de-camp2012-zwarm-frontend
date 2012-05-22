@@ -5,13 +5,17 @@ Logfile initialized
 [INFO] Titanium SDK version: 2.0.1 (04/12/12 16:33 999c68a)
 [DEBUG] Waiting for device to be ready ...
 [TRACE] adb devices returned 1 devices/emulators
-[DEBUG] Device connected... (waited 0 seconds)
-[DEBUG] waited 0.006090 seconds on emulator to get ready
+[TRACE] adb devices returned 1 devices/emulators
+[TRACE] adb devices returned 1 devices/emulators
+[DEBUG] Device connected... (waited 10 seconds)
+[DEBUG] waited 10.047700 seconds on emulator to get ready
+[INFO] Waiting for the Android Emulator to become available
 [DEBUG] com.zuehlke.zwarm installed? True
 [INFO] Fastdev server running, deploying in Fastdev mode
 [INFO] Copying CommonJS modules...
 [INFO] Copying project resources..
-[TRACE] COPYING MODIFIED FILE: /home/swarm/Titanium Studio Workspace/zwarm-frontend/Resources/ui/MainView.js => /home/swarm/Titanium Studio Workspace/zwarm-frontend/build/android/bin/assets/Resources/ui/MainView.js
+[TRACE] COPYING CREATED FILE: /home/swarm/Titanium Studio Workspace/zwarm-frontend/Resources/ui/MapView.js => /home/swarm/Titanium Studio Workspace/zwarm-frontend/build/android/bin/assets/Resources/ui/MapView.js
+[TRACE] COPYING MODIFIED FILE: /home/swarm/Titanium Studio Workspace/zwarm-frontend/Resources/ui/TabContainer.js => /home/swarm/Titanium Studio Workspace/zwarm-frontend/build/android/bin/assets/Resources/ui/TabContainer.js
 [INFO] Tiapp.xml unchanged, skipping class generation
 [DEBUG] Processing Android resource drawables
 [DEBUG] found drawable-notlong-land-ldpi splash screen at /home/swarm/Titanium Studio Workspace/zwarm-frontend/Resources/android/images/res-notlong-land-ldpi/default.png
