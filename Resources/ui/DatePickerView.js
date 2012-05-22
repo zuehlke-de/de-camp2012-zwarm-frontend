@@ -1,22 +1,69 @@
-function DatePickerView(changeHandler) {
+function DatePickerView(initialDate, callback) {
 	
 	var self = Ti.UI.createWindow({
-		backgroundColor:'#ffffff'
+		backgroundColor:'#ffffff',
+		layout: 'vertical'
 	});
+	
+	var date = initialDate;
 		
-	var picker = Ti.UI.createPicker({
+	var datePicker = Ti.UI.createPicker({
 	    type:Ti.UI.PICKER_TYPE_DATE,
 	    minDate: new Date(),
 	    maxDate: new Date(2020, 12, 31),
-	    value: new Date(2012, 5, 22)
+	    value: date,
+	    top: '20'
+	});
+	datePicker.addEventListener('change', function(e) {
+		date.setDate(e.getDate());
+		date.setMonth(e.getMonth());
+		date.setFullYear(e.getFullYear());
 	});
 	
-	picker.addEventListener('change', function(e) {
-  		changeHandler(e.value);
-  		self.close();
+	var timePicker = Ti.UI.createPicker({
+	    type:Ti.UI.PICKER_TYPE_TIME,
+	    minDate: new Date(),
+	    maxDate: new Date(2020, 12, 31),
+	    value: date,
+	    top: '20'
+	});
+	timePicker.addEventListener('change', function(e) {
+		date.setHours(e.getHours());
+		date.setMinutes(e.getMinutes());
+		date.setSeconds(e.getSeconds());
 	});
 	
-	self.add(picker);
+	var buttonContainer = Ti.UI.createView({
+		layout: 'horizontal',
+		top: '50',
+	});
+	
+	var okButton = Ti.UI.createButton({
+		title: "OK",
+		width: '35%',
+		left: '10%'
+	});
+	okButton.addEventListener('click', function() {
+		callback(date);
+		self.close();
+	});
+	
+	var cancelButton = Ti.UI.createButton({
+		title: "Cancel",
+		width: '35%',
+		left: '10%'
+	});
+	cancelButton.addEventListener('click', function() {
+		self.close();
+	});
+	
+	buttonContainer.add(okButton);
+	buttonContainer.add(cancelButton);
+	
+	
+	self.add(datePicker);
+	self.add(timePicker);
+	self.add(buttonContainer);
 	
 	return self;
 	
