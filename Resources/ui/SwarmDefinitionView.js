@@ -47,12 +47,14 @@ function SwarmDefinitionView() {
 										sendObject.active = true;
 										sendObject.title = nameTextField.value;
 										sendObject.task = taskTextField.value;
-										sendObject.validFrom = "19.02.2012 10:00";
-										sendObject.validUntil = "18.03.2012 20:00";
+										sendObject.validFrom = 1329642000000; // 19.02.2012 10:00:00
+										sendObject.validUntil = 1332061200000; // 18.03.2012 20:00:00
 										sendObject.waitingTime = 180;
 										sendObject.duration = 60;
 										sendObject.minParticipants = 30;
 										sendObject.maxParticipants = 60;
+										sendObject.radius = 50;
+										sendObject.ownerId = '123456';
 
 										var SwarmClient = require('network/SwarmClient');
 										var my_swarmClient = new SwarmClient();
