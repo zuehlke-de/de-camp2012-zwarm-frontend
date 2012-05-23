@@ -101,6 +101,14 @@ function SwarmView() {
 	   height: buttonHeight
 	});
 	self.buttonParticipate.addEventListener('click', function(e){
+		var SwarmClient = require('/network/SwarmClient');
+		var swarmClient = new SwarmClient();
+		var participant = {
+			id: Ti.App.Properties.getString('user.id')
+		};
+		// TODO correct swarm id
+		swarmClient.addParticipantToSwarm(participant, '7777777');
+		
 		userSelection = true;
 		self.remove(self.buttonParticipate);
 		self.remove(self.buttonNotParticipate);
