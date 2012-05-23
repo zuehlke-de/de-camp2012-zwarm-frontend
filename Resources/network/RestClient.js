@@ -1,5 +1,5 @@
 function RestClient(){
-	var baseUrl = 'http://ec2-54-247-155-88.eu-west-1.compute.amazonaws.com:4711/'
+	var baseUrl = 'http://ec2-54-247-155-88.eu-west-1.compute.amazonaws.com:4711'
 		requestTimeoutMillis = 60000; 
 	
 	return {
