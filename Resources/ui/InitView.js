@@ -90,7 +90,9 @@ function InitView() {
 	}
 	var getNotificationToken = function() {
 		var notificationToken = 'unknown';
-		// TODO how to construct		
+		if (Ti.App.Properties.hasProperty('user.notificationToken')) {
+			notificationToken = Ti.App.Properties.getString('user.notificationToken');
+		}		
 		return notificationToken;
 	}
 	
