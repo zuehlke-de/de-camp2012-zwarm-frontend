@@ -11,7 +11,6 @@ function SwarmListView(swarmDefinition){
 	self.add(table);
 	
 	var SwarmCommentsView = require('/ui/SwarmCommentsView');
-	var swarmCommentsView = new SwarmCommentsView();
 
 	self.addEventListener('click', function(e){
 		var swarmCommentsView = new SwarmCommentsView(e.rowData);
@@ -23,7 +22,11 @@ function SwarmListView(swarmDefinition){
 	var swarmClient = new SwarmClient();
 	
 	var onLoadCallback = function(json) {
-		table.data = json;
+		var swarmArray = json.swarms;
+		for (item in swarmArray) {
+			item.title = item.city + ' ' + new Date(item.invitationTime);
+		}
+		table.data = swarmArray;
 	}
 	swarmClient.getSwarmsForSwarmDefinition(swarmDefinition.id, onLoadCallback);
 	

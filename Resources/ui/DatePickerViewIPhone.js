@@ -9,26 +9,15 @@ function DatePickerView(initialDate, callback) {
 	var date = initialDate;
 		
 	var datePicker = Ti.UI.createPicker({
-	    type:Ti.UI.PICKER_TYPE_DATE,
+	    type:Ti.UI.PICKER_TYPE_DATE_AND_TIME,
 	    minDate: new Date(),
 	    maxDate: new Date(2020, 12, 31),
-	    value: date,
-	    top: '20'
+	    value: date
 	});
 	datePicker.addEventListener('change', function(e) {
 		date.setDate(e.value.getDate());
 		date.setMonth(e.value.getMonth());
 		date.setFullYear(e.value.getFullYear());
-	});
-	
-	var timePicker = Ti.UI.createPicker({
-	    type:Ti.UI.PICKER_TYPE_TIME,
-	    minDate: new Date(),
-	    maxDate: new Date(2020, 12, 31),
-	    value: date,
-	    top: '20'
-	});
-	timePicker.addEventListener('change', function(e) {
 		date.setHours(e.value.getHours());
 		date.setMinutes(e.value.getMinutes());
 		date.setSeconds(e.value.getSeconds());
@@ -63,7 +52,6 @@ function DatePickerView(initialDate, callback) {
 	
 	
 	self.add(datePicker);
-	self.add(timePicker);
 	self.add(buttonContainer);
 	
 	return self;
