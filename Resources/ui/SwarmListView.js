@@ -10,13 +10,13 @@ function SwarmListView(swarmDefinition){
 	
 	self.add(table);
 	
-	var SampleView = require('/ui/SampleView');
-	var sampleView = new SampleView();
+	var SwarmCommentsView = require('/ui/SwarmCommentsView');
+	var swarmCommentsView = new SwarmCommentsView();
 
 	self.addEventListener('click', function(e){
-		// alert('You clicked row '+e.index);
-		
-		self.containingTab.open(sampleView);
+		var swarmCommentsView = new SwarmCommentsView(e.rowData);
+		swarmCommentsView.containingTab = self.containingTab;
+		self.containingTab.open(swarmCommentsView);
 	});
 	
 	var SwarmClient = require('/network/SwarmClient');

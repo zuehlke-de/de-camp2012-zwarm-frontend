@@ -8,22 +8,77 @@ function SwarmDefinitionView() {
 	var rows = [];
 	var tableCellWidth = '90%';
 	var gapLeft = '5%';
+	var displayDateFormat = "dd.mm.yy hh:MM TT";
 	
 	var scrollview = Ti.UI.createScrollableView({height:'100%'});
+
+	// Title:	
  
 	var nameTextField = Ti.UI.createTextField({title:"Name", hintText:'Name', width: tableCellWidth});
 	var row = Ti.UI.createTableViewRow()
 	row.add(nameTextField);
 	rows.push(row);
+
+	// Task:	
 	
 	var taskTextField = Ti.UI.createTextField({title:"Task", hintText:'Task', width:tableCellWidth});
 	var row = Ti.UI.createTableViewRow();
 	row.add(taskTextField);
 	rows.push(row);
 	
-	rows.push(Titanium.UI.createTableViewRow({title:"From: 19.02.2012 10:00", width:tableCellWidth, left:gapLeft, hasChild:true}));
-	rows.push(Titanium.UI.createTableViewRow({title:"Until: 18.03.2012 20:00", width:tableCellWidth,left:gapLeft,  hasChild:true}));
-	rows.push(Titanium.UI.createTableViewRow({title:"Wait: 3:00 Minutes", width:tableCellWidth, left:gapLeft, hasChild:true}));
+	
+	Titanium.include('/util/DateFormat.js');
+	var DatePicker = require('ui/DatePickerView');
+		
+
+	// DateFrom:	
+	
+	var dateFrom = new Date();
+	
+	var datePickedHandler = function(date){
+		dateFrom = date;
+		validFromLabel.text="From: " + date.format(displayDateFormat);
+	}
+	
+	var validFromLabel = Ti.UI.createLabel({text:"From: " + dateFrom.format(displayDateFormat), width:tableCellWidth, left:gapLeft, hasChild:true});
+	validFromLabel.addEventListener('click',function(e){
+		
+		var my_datePickerFrom = new DatePicker(dateFrom, datePickedHandler);
+		my_datePickerFrom.open();
+		
+	});
+	row = Ti.UI.createTableViewRow({hasChild:true});
+	row.add(validFromLabel);
+	rows.push(row);
+	
+	//DateUntil:	
+	
+	var dateUntil = new Date();
+	
+	var datePickedHandlerUntil = function(date){
+		dateUntil = date;
+		validUntilLabel.text="Until: " + date.format(displayDateFormat);
+	}
+	
+	var validUntilLabel = Ti.UI.createLabel({text:"Until: " + dateUntil.format(displayDateFormat), width:tableCellWidth, left:gapLeft, hasChild:true});
+	validUntilLabel.addEventListener('click',function(e){
+		
+		var my_datePickerUntil = new DatePicker(dateUntil, datePickedHandlerUntil);
+		my_datePickerUntil.open();
+		
+	});
+	row = Ti.UI.createTableViewRow({hasChild:true});
+	row.add(validUntilLabel);
+	rows.push(row);
+	
+	// Waiting Time:	
+	
+	var waitingTimeLabel = Ti.UI.createLabel({text:"Wait: 3:00 Minutes", width:tableCellWidth, left:gapLeft});
+	row = Ti.UI.createTableViewRow({hasChild:true});
+	row.add(waitingTimeLabel);
+	rows.push(row);
+	
+	// Duration Slider:
 	
 	var sliderLabel = Ti.UI.createLabel({text:"Duration: 60 Seconds",width:'45%', left:gapLeft })
 	var slider = Ti.UI.createSlider({min:0, max: 300, value:60, width:'45%',left:'50%'});
@@ -32,10 +87,54 @@ function SwarmDefinitionView() {
 	row.add(slider);
 	rows.push(row);
 	
-	rows.push(Titanium.UI.createTableViewRow({title:"Location: None", width:tableCellWidth, left:gapLeft, hasChild:false}));
-	rows.push(Titanium.UI.createTableViewRow({title:"Within: 300m", width:tableCellWidth, left:gapLeft, hasChild:true}));
-	rows.push(Titanium.UI.createTableViewRow({title:"Min.participants: 30", width:tableCellWidth, left:gapLeft, hasChild:true}));
-	rows.push(Titanium.UI.createTableViewRow({title:"Max. participants: 60", width:tableCellWidth, left:gapLeft, hasChild:true}));
+	// Location:
+	var waitingTimeLabel = Ti.UI.createLabel({text:"Location: None", width:tableCellWidth, left:gapLeft});
+	row = Ti.UI.createTableViewRow({hasChild:false});
+	row.add(waitingTimeLabel);
+	rows.push(row);
+	
+
+
+	
+	// Radius:	
+	
+	var radiusLabel = Ti.UI.createLabel({text:"Within: ", width:tableCellWidth, left:gapLeft});
+	var radiusTextField = Ti.UI.createTextField({width: '20%', left:'20%', textAlign:Ti.UI.TEXT_ALIGNMENT_RIGHT, keyboardType:Ti.UI.KEYBOARD_NUMBER_PAD})
+	var mLabel = Ti.UI.createLabel({text:"meter", width:tableCellWidth, left:'45%'})
+	radiusTextField.value=300;
+	// hinttext does not work, if alignment = right!
+	
+	row = Ti.UI.createTableViewRow({hasChild:false});
+	row.add(radiusLabel);
+	row.add(radiusTextField);
+	row.add(mLabel);
+	rows.push(row);
+	
+	// Min Participants:	
+	
+	var minParticipantLabel = Ti.UI.createLabel({text:"Min. participants:", width:tableCellWidth, left:gapLeft});
+	var minParticipantTextField = Ti.UI.createTextField({width: '20%',left:'40%', textAlign:Ti.UI.TEXT_ALIGNMENT_RIGHT,keyboardType:Ti.UI.KEYBOARD_NUMBER_PAD});
+	minParticipantTextField.value = 30;
+	// hinttext does not work, if alignment = right!
+		
+	row = Ti.UI.createTableViewRow({hasChild:false});
+	row.add(minParticipantLabel);
+	row.add(minParticipantTextField);
+	rows.push(row);
+	
+	// Min Participants:	
+	
+	var maxParticipantLabel = Ti.UI.createLabel({text:"Max. participants:", width:tableCellWidth, left:gapLeft});
+	var maxParticipantTextField = Ti.UI.createTextField({width: '20%',left:'40%', textAlign:Ti.UI.TEXT_ALIGNMENT_RIGHT,keyboardType:Ti.UI.KEYBOARD_NUMBER_PAD});
+	maxParticipantTextField.value = 60;
+	// hinttext does not work, if alignment = right!
+		
+	row = Ti.UI.createTableViewRow({hasChild:false});
+	row.add(maxParticipantLabel);
+	row.add(maxParticipantTextField);
+	rows.push(row);
+	
+	
 	
 	var publishButton = Ti.UI.createButton({
 									title:'Publish',
@@ -43,18 +142,22 @@ function SwarmDefinitionView() {
 									
 	publishButton.addEventListener('click',function(e){
 									var sendObject = {};
-									if(nameTextField.value.length>0 && taskTextField.value.length>0){
+									if(nameTextField.value.length>0
+											&& taskTextField.value.length>0
+											&&minParticipantTextField.value.length>0
+											&&maxParticipantTextField.value.length>0
+											&&radiusTextField.value.length>0) {
 										sendObject.active = true;
 										sendObject.title = nameTextField.value;
 										sendObject.task = taskTextField.value;
-										sendObject.validFrom = 1329642000000; // 19.02.2012 10:00:00
-										sendObject.validUntil = 1332061200000; // 18.03.2012 20:00:00
+										sendObject.validFrom = dateFrom.getTime();
+										sendObject.validUntil = dateUntil.getTime();
 										sendObject.waitingTime = 180;
 										sendObject.duration = 60;
-										sendObject.minParticipants = 30;
-										sendObject.maxParticipants = 60;
-										sendObject.radius = 50;
-										sendObject.ownerId = '123456';
+										sendObject.minParticipants = minParticipantTextField.value;
+										sendObject.maxParticipants = maxParticipantTextField.value;
+										sendObject.radius = radiusTextField.value;
+										sendObject.ownerId = Ti.App.Properties.getString('user.id');
 
 										var SwarmClient = require('network/SwarmClient');
 										var my_swarmClient = new SwarmClient();

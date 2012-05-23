@@ -23,7 +23,7 @@ function MainView() {
 	var SwarmBrowser = require('/ui/SwarmBrowser');
 	var swarmBrowser = new SwarmBrowser();
 	var allSwarmsTab = Ti.UI.createTab({
-		title: 'All Swarms',
+		title: 'All Zwarms',
 		window: swarmBrowser
 	});
 	swarmBrowser.containingTab = allSwarmsTab;
