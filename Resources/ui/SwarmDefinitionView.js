@@ -21,7 +21,24 @@ function SwarmDefinitionView() {
 	row.add(taskTextField);
 	rows.push(row);
 	
-	rows.push(Titanium.UI.createTableViewRow({title:"From: 19.02.2012 10:00", width:tableCellWidth, left:gapLeft, hasChild:true}));
+	var dateNow = new Date();
+	
+	var datePickedHandler = function(date){
+		validFromLabel.text="From: " + date;
+	}
+	
+	var validFromLabel = Ti.UI.createLabel({text:"From: " + dateNow, width:tableCellWidth, left:gapLeft, hasChild:true});
+	validFromLabel.addEventListener('click',function(e){
+		
+		var DatePicker = require('ui/DatePickerView');
+		var my_datePicker = new DatePicker(datePickedHandler, validFromLabel.text.substring(6));
+		my_datePicker.open();
+		
+	});
+	row = Ti.UI.createTableViewRow({hasChild:true});
+	row.add(validFromLabel);
+	rows.push(row);
+	
 	rows.push(Titanium.UI.createTableViewRow({title:"Until: 18.03.2012 20:00", width:tableCellWidth,left:gapLeft,  hasChild:true}));
 	rows.push(Titanium.UI.createTableViewRow({title:"Wait: 3:00 Minutes", width:tableCellWidth, left:gapLeft, hasChild:true}));
 	
@@ -34,7 +51,7 @@ function SwarmDefinitionView() {
 	
 	rows.push(Titanium.UI.createTableViewRow({title:"Location: None", width:tableCellWidth, left:gapLeft, hasChild:false}));
 	rows.push(Titanium.UI.createTableViewRow({title:"Within: 300m", width:tableCellWidth, left:gapLeft, hasChild:true}));
-	rows.push(Titanium.UI.createTableViewRow({title:"Min.participants: 30", width:tableCellWidth, left:gapLeft, hasChild:true}));
+	rows.push(Titanium.UI.createTableViewRow({title:"Min. participants: 30", width:tableCellWidth, left:gapLeft, hasChild:true}));
 	rows.push(Titanium.UI.createTableViewRow({title:"Max. participants: 60", width:tableCellWidth, left:gapLeft, hasChild:true}));
 	
 	var publishButton = Ti.UI.createButton({
@@ -53,6 +70,7 @@ function SwarmDefinitionView() {
 										sendObject.duration = 60;
 										sendObject.minParticipants = 30;
 										sendObject.maxParticipants = 60;
+										sendObject.radius = 300;
 
 										var SwarmClient = require('network/SwarmClient');
 										var my_swarmClient = new SwarmClient();
