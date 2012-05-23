@@ -15,9 +15,9 @@ function DatePickerView(initialDate, callback) {
 	    top: '20'
 	});
 	datePicker.addEventListener('change', function(e) {
-		date.setDate(e.getDate());
-		date.setMonth(e.getMonth());
-		date.setFullYear(e.getFullYear());
+		date.setDate(e.value.getDate());
+		date.setMonth(e.value.getMonth());
+		date.setFullYear(e.value.getFullYear());
 	});
 	
 	var timePicker = Ti.UI.createPicker({
@@ -28,9 +28,9 @@ function DatePickerView(initialDate, callback) {
 	    top: '20'
 	});
 	timePicker.addEventListener('change', function(e) {
-		date.setHours(e.getHours());
-		date.setMinutes(e.getMinutes());
-		date.setSeconds(e.getSeconds());
+		date.setHours(e.value.getHours());
+		date.setMinutes(e.value.getMinutes());
+		date.setSeconds(e.value.getSeconds());
 	});
 	
 	var buttonContainer = Ti.UI.createView({
