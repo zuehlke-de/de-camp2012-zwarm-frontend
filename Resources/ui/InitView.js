@@ -89,7 +89,7 @@ function InitView() {
 		return platform;
 	}
 	var getNotificationToken = function() {
-		var notificationToken = 'unknown';
+		var notificationToken = '';
 		if (Ti.App.Properties.hasProperty('user.notificationToken')) {
 			notificationToken = Ti.App.Properties.getString('user.notificationToken');
 		}		
