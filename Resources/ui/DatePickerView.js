@@ -31,6 +31,7 @@ function DatePickerView(initialDate, callback) {
 		date.setHours(e.value.getHours());
 		date.setMinutes(e.value.getMinutes());
 		date.setSeconds(e.value.getSeconds());
+		date.setMilliSeconds(0);
 	});
 	
 	var buttonContainer = Ti.UI.createView({
@@ -70,6 +71,4 @@ function DatePickerView(initialDate, callback) {
 };
 
 module.exports = DatePickerView;
-
-
 
