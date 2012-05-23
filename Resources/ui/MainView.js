@@ -2,7 +2,7 @@ function MainView() {
 	
 	var isAppleOS = false;
 	
-	if (Ti.Platform.osname === 'iphone' || Ti.Platform.osname === 'ipad'){
+	if (Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'ipad'){
 		isAppleOs = true;
 	}
 		
@@ -19,7 +19,7 @@ function MainView() {
 	mapView.containingTab = mapTab;
 	
 	var SwarmDefinitionView;
-	if(isAppleOS){
+	if(isAppleOs){
 		SwarmDefinitionView = require('/ui/SwarmDefinitionViewIPhone');
 	} else {
 		SwarmDefinitionView = require('/ui/SwarmDefinitionView');

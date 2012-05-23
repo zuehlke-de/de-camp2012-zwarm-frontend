@@ -28,7 +28,7 @@ function PushNotificationService(){
 						}, function (e) {
 						    if (e.success) {
 						        alert('Push subscription successful.');
-						        Ti.App.Properties.setBoolean('user.isSubscribedForPushChannel')
+						        Ti.App.Properties.setBoolean('user.isSubscribedForPushChannel', true);
 						    } else {
 						        alert('Push subscribe error:\\n' + ((e.error && e.message) || JSON.stringify(e)));
 						    }

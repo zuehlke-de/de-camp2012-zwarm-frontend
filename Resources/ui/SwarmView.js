@@ -127,7 +127,7 @@ function SwarmView() {
 	});
 	self.add(self.buttonNotParticipate);
 	
-	var AddCommentView = require("AddCommentView");
+	var AddCommentView = require("ui/AddCommentView");
 	self.addCommentView = new AddCommentView();
 	// TODO use correct swarm id
 	self.addCommentView.swarmId = '7777777';
