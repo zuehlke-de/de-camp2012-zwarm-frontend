@@ -74,43 +74,16 @@ function MapView() {
 	 */
 	self.updateNearbyUsers = function () {
 		
-		// TODO use data from backend instead of dummy data below
-		// var userId = Ti.App.Properties.getString('user.id');
-// 		
-		// if(client === null) {
-			// client = new SwarmClient();
-		// }
-// 		
-		// client.getNearbyUsersForUser(userId, function(jsonObject) {
-			// Ti.API.info("nearbyUsers: " + jsonObject);
-		// });
+		var userId = Ti.App.Properties.getString('user.id');
 		
+		if(client === null) {
+			client = new SwarmClient();
+		}
 		
-		// TODO remove this dummy stuff
-		self.setNearbyUsers((function(count) {
-			var dummyUsers = [];
-			
-			function myRandom() {
-				var sign = (Math.random() > 0.5) ? 1.0 : -1.0;
-				return sign * Math.random();
-			}
-
-			for( i = 0; i < count; i++) {
-				var latitude = 50.303 + myRandom() * 0.005;
-				var longitude = 9.747 + myRandom() * 0.005;
-				var nickname = 'dummy' + i;
-
-				dummyUsers.push({
-					location : {
-						latitude : latitude,
-						longitude : longitude
-					},
-					nickname : nickname
-				});
-			}
-
-			return dummyUsers;
-		})(20)); 
+		client.getNearbyUsersForUser(userId, function(jsonObject) {
+			// jsonObject allready has correct structure, so just pass it 
+			self.setNearbyUsers(jsonObject);
+		});
 
 	};
 	
