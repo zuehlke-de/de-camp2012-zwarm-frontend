@@ -7,7 +7,11 @@ function RestClient(){
 			onload: function(e) {
 				var jsonObject;
 				Ti.API.debug('Response text: ' + this.responseText);
-				jsonObject = JSON.parse(this.responseText);
+				try {
+					jsonObject = JSON.parse(this.responseText);
+				} catch (e) {
+					jsonObject = {};
+				}
 				parserCallback && parserCallback(jsonObject);
 			},
 			onerror: function(e) {
