@@ -27,7 +27,7 @@ function SwarmDefinitionView() {
 	rows.push(row);
 	
 	
-	Titanium.include('../util/DateFormat.js');
+	Titanium.include('/util/DateFormat.js');
 	var DatePicker = require('ui/DatePickerView');
 		
 
