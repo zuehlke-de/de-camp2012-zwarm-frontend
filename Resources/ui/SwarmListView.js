@@ -22,7 +22,6 @@ function SwarmListView(swarmDefinition){
 	var swarmClient = new SwarmClient();
 	
 	var onLoadCallback = function(json) {
-		alert('Swarm result: ' + JSON.stringify(json));
 		var swarmArray = json.swarms;
 		for (item in swarmArray) {
 			item.title = item.city + ' ' + new Date(item.invitationTime);
