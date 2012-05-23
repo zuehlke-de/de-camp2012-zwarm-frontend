@@ -25,7 +25,7 @@ function SwarmBrowser(){
 	var swarmClient = new SwarmClient();
 	
 	var onLoadCallback = function(json) {
-		table.data = json;
+		table.data = json.swarmDefinitions;
 	}
 	swarmClient.getSwarmDefinitions(onLoadCallback);
 	

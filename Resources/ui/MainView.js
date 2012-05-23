@@ -1,5 +1,11 @@
 function MainView() {
 	
+	var isAppleOS = false;
+	
+	if (Ti.Platform.osname === 'iphone' || Ti.Platform.osname === 'ipad'){
+		isAppleOs = true;
+	}
+		
 	var self = Ti.UI.createTabGroup({
 		backgroundColor:'#ffffff'
 	});
@@ -12,7 +18,13 @@ function MainView() {
 	});
 	mapView.containingTab = mapTab;
 	
-	var SwarmDefinitionView = require('/ui/SwarmDefinitionView');
+	var SwarmDefinitionView;
+	if(isAppleOS){
+		SwarmDefinitionView = require('/ui/SwarmDefinitionViewIPhone');
+	} else {
+		SwarmDefinitionView = require('/ui/SwarmDefinitionView');
+	}
+	
 	var swarmDefinitionView = new SwarmDefinitionView();
 	var newSwarmTab = Ti.UI.createTab({
 		title: 'New Zwarm',
