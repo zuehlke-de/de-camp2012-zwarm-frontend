@@ -2,7 +2,8 @@ function DatePickerView(initialDate, callback) {
 	
 	var self = Ti.UI.createWindow({
 		backgroundColor:'#ffffff',
-		layout: 'vertical'
+		layout: 'vertical',
+		
 	});
 	
 	var date = initialDate;

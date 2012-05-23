@@ -37,46 +37,49 @@ function SwarmDefinitionView() {
 	
 	var datePickedHandler = function(date){
 		dateFrom = date;
-		validFromLabel.text="From: " + date.format(displayDateFormat);
+		validFromButton.title="From: " + date.format(displayDateFormat);
 		if(dateUntil.getTime()<dateFrom.getTime()){
+			alert("Corrected end time!");
 			dateUntil = date;
-			validUntilLabel.text = "Until: " + date.format(displayDateFormat);
+			validUntilButton.title = "Until: " + date.format(displayDateFormat);
 		}
 	}
 	
-	var validFromLabel = Ti.UI.createLabel({text:"From: " + dateFrom.format(displayDateFormat), width:tableCellWidth, left:gapLeft, hasChild:true});
-	validFromLabel.addEventListener('click',function(e){
+	var validFromButton = Ti.UI.createButton({title:"From: " + dateFrom.format(displayDateFormat), textAlign:Ti.UI.TEXT_ALIGNMENT_LEFT, width:tableCellWidth, left:gapLeft, hasChild:true});
+	validFromButton.addEventListener('click',function(e){
 		
 		var my_datePickerFrom = new DatePicker(dateFrom, datePickedHandler);
 		my_datePickerFrom.open();
 		
 	});
-	row = Ti.UI.createTableViewRow({hasChild:true});
-	row.add(validFromLabel);
+	row = Ti.UI.createTableViewRow({hasChild:false});
+	row.add(validFromButton);
 	rows.push(row);
 	
 	//DateUntil:	
 	
-	var dateUntil = new Date();
+	var dateUntil = new Date()
+	dateUntil.setTime(dateUntil.getTime() + 24*60*60*1000)
 	
 	var datePickedHandlerUntil = function(date){
 		dateUntil = date;
-		validUntilLabel.text="Until: " + date.format(displayDateFormat);
+		validUntilButton.title="Until: " + date.format(displayDateFormat);
 		if(dateUntil.getTime()<dateFrom.getTime()){
+			alert("Corrected start time!");
 			dateFrom = date;
-			validFromLabel.text = "From: " + date.format(displayDateFormat);
+			validFromButton.title = "From: " + date.format(displayDateFormat);
 		}
 	}
 	
-	var validUntilLabel = Ti.UI.createLabel({text:"Until: " + dateUntil.format(displayDateFormat), width:tableCellWidth, left:gapLeft, hasChild:true});
-	validUntilLabel.addEventListener('click',function(e){
+	var validUntilButton = Ti.UI.createButton({title:"Until: " + dateUntil.format(displayDateFormat), textAlign:Ti.UI.TEXT_ALIGNMENT_LEFT, width:tableCellWidth, left:gapLeft, hasChild:true});
+	validUntilButton.addEventListener('click',function(e){
 		
 		var my_datePickerUntil = new DatePicker(dateUntil, datePickedHandlerUntil);
 		my_datePickerUntil.open();
 		
 	});
-	row = Ti.UI.createTableViewRow({hasChild:true});
-	row.add(validUntilLabel);
+	row = Ti.UI.createTableViewRow({hasChild:false});
+	row.add(validUntilButton);
 	rows.push(row);
 	
 	// Waiting Time Slider:	
@@ -172,10 +175,7 @@ function SwarmDefinitionView() {
 									
 	publishButton.addEventListener('click',function(e){
 									var sendObject = {};
-									//alert(dateUntil.getTime()-dateFrom.getTime());
-									if((dateUntil.getTime()-dateFrom.getTime())<60*60*1000){
-										alert('Validity Period must be longer than one hour.' + (dateUntil.getTime()-dateFrom.getTime()));
-									} else if(nameTextField.value.length>0
+									if(nameTextField.value.length>0
 											&& taskTextField.value.length>0
 											&&minParticipantTextField.value.length>0
 											&&maxParticipantTextField.value.length>0
@@ -209,9 +209,9 @@ function SwarmDefinitionView() {
 	rows.push(row);
 	
 	var tableView = Ti.UI.createTableView({
-		style:Ti.UI.iPhone.TableViewStyle.GROUPED,
 		width:'100%',
-		top:'10%',
+		top:'2%',
+		separatorColor: 'transparent',
 		data: rows
 	});
 
