@@ -2,7 +2,7 @@ function MainView() {
 	
 	var isAppleOS = false;
 	
-	if (Ti.Platfrom.osname === 'iphone' || Ti.Platfrom.osname === 'ipad'){
+	if (Ti.Platform.osname === 'iphone' || Ti.Platform.osname === 'ipad'){
 		isAppleOs = true;
 	}
 		
