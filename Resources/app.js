@@ -7,6 +7,12 @@ Titanium.UI.setBackgroundColor('#000');
 var LocationHelper = require('lib/LocationHelper');
 var locationHelper = new LocationHelper();
 
+var PushNotificationService = require('network/android/PushNotificationService');
+var pushNotificationService = new PushNotificationService(function(evt) {
+	// evt.payload should be a swarmId
+	// TODO get additional swarm data and open the SwarmView instead
+	Ti.API.info('PushNotification received: ' + evt.payload);
+});
 
 
 var openInitView = function() {
