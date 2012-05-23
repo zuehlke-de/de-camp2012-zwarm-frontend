@@ -49,17 +49,52 @@ function InitView() {
 		top: '7%',
 	});
 	initButton.addEventListener('click', function(event) {
-		var userId = Ti.Platform.createUUID();
-		Ti.App.Properties.setString('user.id', userId);
-		var userName = nicknameInput.value.trim();
-		if (userName.length == 0) {
-			userName = nicknameInput.hintText;
+		var user = {
+			id: Ti.Platform.createUUID(), 
+			nickname: getNickname(),
+			platform: getPlatform(),
+			notificationToken: getNotificationToken(),
 		}
-		Ti.App.Properties.setString('user.name', userName);
-	    // TODO call server		
-		self.close();
+		
+	    // call server		
+		var SwarmClient = require('/network/SwarmClient');
+		var swarmClient = new SwarmClient();
+		swarmClient.addUser(user, function(userJSON) {
+			// set properties
+			Ti.App.Properties.setString('user.id', userJSON.id);
+			Ti.App.Properties.setString('user.name', userJSON.name);
+			self.close();
+		});
+		
 	});
 	containerView.add(initButton);
+	
+	var getNickname = function() {
+		var nickname = nicknameInput.value.trim();
+		if (nickname.length == 0) {
+			nickname = nicknameInput.hintText;
+		}
+		return nickname;
+	}
+	var getPlatform = function() {
+		var platform = 'unknown';
+		
+		var osname = Ti.Platform.osname;
+		if ((osname === 'iphone') || (osname === 'ipad')) {
+			platform = 'ios';
+		} else if (osname === 'android') {
+			platform = 'android';
+		}
+		
+		return platform;
+	}
+	var getNotificationToken = function() {
+		var notificationToken = 'unknown';
+		if (Ti.App.Properties.hasProperty('user.notificationToken')) {
+			notificationToken = Ti.App.Properties.getString('user.notificationToken');
+		}		
+		return notificationToken;
+	}
 	
 	return self;
 };
