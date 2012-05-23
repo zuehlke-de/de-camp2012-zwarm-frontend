@@ -1,6 +1,6 @@
 function RestClient(){
 	var baseUrl = 'http://ec2-54-247-155-88.eu-west-1.compute.amazonaws.com:4711'; 
-	var timeout = 10000;
+	var requestTimeout = 10000;
 	
 	var createHttpClient = function() {
 		return Ti.Network.createHTTPClient({
@@ -14,7 +14,7 @@ function RestClient(){
 				Ti.API.debug('Response text: ' + this.responseText);
 				alert('Error(' + this.status +'): ' + e.error + '; ' + this.responseText);
 			},
-			timeout: timeout
+			timeout: requestTimeout
 		});
 	}
 	
