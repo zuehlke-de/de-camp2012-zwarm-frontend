@@ -5,9 +5,10 @@ function SwarmView() {
 	//
 	// create base UI tab and root window
 	//
-	var self = Titanium.UI.createWindow({  
-	    title:'SwarmWindow',
-	    backgroundColor:'#fff'
+	var self = Titanium.UI.createWindow({ 
+	    title: 'SwarmWindow',
+	    backgroundColor: '#fff',
+	    layout: 'vertical'
 	});
 	
 	var userSelection = false;
@@ -49,99 +50,24 @@ function SwarmView() {
 		font:{fontSize:30,fontFamily:'Helvetica Neue'},
 		textAlign:'center'
 	});
+	self.add(swarmLabel);
 	
 	var switchLabelColor = function(color){
 		swarmLabel.backgroundColor = color;
 	};
 	
-	var toggleMediaButton = function(mediaButtonsActive){
-		if(mediaButtonsActive){
-			self.add(buttonPhoto);
-			self.add(buttonVideo);
-			self.add(buttonComment);
-			self.remove(buttonParticipate);
-			self.remove(buttonNotParticipate);
-		} else {
-			self.remove(buttonPhoto);
-			self.remove(buttonVideo);
-			self.remove(buttonComment);
-			self.add(buttonParticipate);
-			self.add(buttonNotParticipate);
-		}
-	}
-	
 	var closeView = function(){
 		alert('Close view');
 	}
 	
-	var buttonParticipate = Titanium.UI.createButton({
-	   title: 'Participate',
-	   top:'55%',
-	   width: buttonWidth,
-	   height: buttonHeight
-	});
-	
-	
-	var buttonNotParticipate = Titanium.UI.createButton({
-	   title: 'Nope',
-	   top:'70%',
-	   width: buttonWidth,
-	   height: buttonHeight
-	});
-	
-	var buttonPhoto = Titanium.UI.createButton({
-	   title: 'Take a Photo',
-	   top:'55%',
-	   width: buttonWidth,
-	   height: buttonHeight
-	});
-	
-	var buttonVideo = Titanium.UI.createButton({
-	   title: 'Make a Video',
-	   top: '70%',
-	   width: buttonWidth,
-	   height: buttonHeight
-	});
-	
-	var buttonComment = Titanium.UI.createButton({
-	   title: 'Write a Comment',
-	   top: '85%',
-	   width: buttonWidth,
-	   height: buttonHeight
-	});
-	
-	buttonPhoto.addEventListener('click',function(e){
-		alert('Photo button click');
-	});
-	
-	buttonParticipate.addEventListener('click',function(e){
-		userSelection = true;
-		toggleMediaButton(true);
-	});
-	
-	buttonNotParticipate.addEventListener('click',function(e){
-		closeView();
-	});
-	
-	
-	buttonVideo.addEventListener('click',function(e){
-		alert('Video button click');
-	});
-	
-	
-	buttonComment.addEventListener('click',function(e){
-		alert('Comment button click');
-	});
-	
 	Titanium.include('/util/Countdown.js');
-	
 	//label for the countdown
 	var countdownLabel = Ti.UI.createLabel({
-		top:'40%',
-		width:textWidth
+		top:'5%',
+		width: textWidth,
+		text: "Starting in " + Math.floor(countdownSeconds/60)+":"+countdownSeconds%60 + " Minutes."
 	});
-	
-	countdownLabel.text = "Starting in " + Math.floor(countdownSeconds/60)+":"+countdownSeconds%60 + " Minutes.";        
+	self.add(countdownLabel);
 	// timer for Starting in ...
 	var my_timer = new countDown(0,countdownSeconds,
 		function() {
@@ -155,7 +81,6 @@ function SwarmView() {
 	    	}
 	   }
 	).start();
-	
 	var startZwarm = function(){
 		swarmLabel.backgroundColor='green';
 		countdownLabel.text = "Finishing in " + Math.floor(zwarmDuration/60)+":"+zwarmDuration%60 + " Minutes.";
@@ -164,15 +89,44 @@ function SwarmView() {
 		    	countdownLabel.text = "Finishing in " + timeString(my_timer) + " Minutes.";
 			},
 			function(){
-				alert('Photo List View');
+				// TODO goto Photo List View
 			}
 		).start();
 	}
-	        
 	
-	self.add(swarmLabel);
-	self.add(countdownLabel);
-	toggleMediaButton(false);
+	self.buttonParticipate = Titanium.UI.createButton({
+	   title: 'Participate',
+	   top:'5%',
+	   width: buttonWidth,
+	   height: buttonHeight
+	});
+	self.buttonParticipate.addEventListener('click', function(e){
+		userSelection = true;
+		self.remove(self.buttonParticipate);
+		self.remove(self.buttonNotParticipate);
+		self.addCommentView.show();
+	});
+	self.add(self.buttonParticipate);
+	
+	self.buttonNotParticipate = Titanium.UI.createButton({
+	   title: 'Nope',
+	   top:'5%',
+	   width: buttonWidth,
+	   height: buttonHeight
+	});
+	self.buttonNotParticipate.addEventListener('click', function(e){
+		closeView();
+	});
+	self.add(self.buttonNotParticipate);
+	
+	var AddCommentView = require("AddCommentView");
+	self.addCommentView = new AddCommentView();
+	// TODO use correct swarm id
+	self.addCommentView.swarmId = '7777777';
+	self.addCommentView.visible = false;
+	self.addCommentView.top = '5%';
+	self.addCommentView.left = '3%';
+	self.add(self.addCommentView);
 	
 	return self;
 }
