@@ -13,10 +13,14 @@ function SwarmListView(swarmDefinition){
 	var SwarmCommentsView = require('/ui/SwarmCommentsView');
 	var swarmCommentsView = new SwarmCommentsView();
 
-	self.addEventListener('click', function(e){
-		var swarmCommentsView = new SwarmCommentsView(e.rowData);
+	self.openSwarmCommentsView = function(swarm) {
+		var swarmCommentsView = new SwarmCommentsView(swarm);
 		swarmCommentsView.containingTab = self.containingTab;
 		self.containingTab.open(swarmCommentsView);
+	}
+
+	self.addEventListener('click', function(e){
+		self.openSwarmCommentsView(e.rowData);
 	});
 	
 	var SwarmClient = require('/network/SwarmClient');
@@ -26,6 +30,10 @@ function SwarmListView(swarmDefinition){
 		table.data = json;
 	}
 	swarmClient.getSwarmsForSwarmDefinition(swarmDefinition.id, onLoadCallback);
+	
+	self.openPastSwarmView = function(swarm) {
+		self.openSwarmCommentsView(swarm);
+	}
 	
 	return self;
 }

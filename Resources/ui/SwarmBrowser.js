@@ -10,10 +10,15 @@ function SwarmBrowser(){
 	
 	var SwarmListView = require('/ui/SwarmListView');
 	
-	self.addEventListener('click', function(e){
+	self.openSwarmDefinitionView = function(swarmDef) {
 		var swarmListView = new SwarmListView(e.rowData);
 		swarmListView.containingTab = self.containingTab;
 		self.containingTab.open(swarmListView);
+		return swarmListView;
+	}
+	
+	self.addEventListener('click', function(e){
+		self.openSwarmDefinitionView(e.rowData);
 	});
 	
 	var SwarmClient = require('/network/SwarmClient');
@@ -23,6 +28,15 @@ function SwarmBrowser(){
 		table.data = json;
 	}
 	swarmClient.getSwarmDefinitions(onLoadCallback);
+	
+	self.openPastSwarmView = function(swarmId) {
+		swarmClient.getSwarmById(swarmId, function(swarm) {
+			swarmClient.getSwarmDefintionById(swarm.swarmDefinitionId, function(swarmDef) {
+				var view = self.openSwarmDefinitionView(swarmDef);
+				view.openPastSwarmView(swarm);
+			});
+		});
+	}
 	
 	return self;
 }
