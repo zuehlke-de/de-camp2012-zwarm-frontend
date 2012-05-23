@@ -10,7 +10,11 @@ function SwarmClient(){
 			restClient.post('/users', userJson, parserCallback);
 		},
 		
-		updateUserLocation: function (userId, userJson) {
+		updateUserLocation: function (userId, locationJson) {
+			var userJson = {
+				id : userId,
+				location : locationJson
+			};
 			restClient.put('/users/' + userId + '/location', userJson);
 		},
 		

@@ -1,5 +1,6 @@
 function RestClient(){
-	var baseUrl = 'http://ec2-54-247-155-88.eu-west-1.compute.amazonaws.com:4711'; 
+	var baseUrl = 'http://ec2-54-247-155-88.eu-west-1.compute.amazonaws.com:4711'
+		requestTimeoutMillis = 10000; 
 	
 	return {
 		get: function (path, parserCallback) {
@@ -14,7 +15,7 @@ function RestClient(){
 					Ti.API.debug(e.error);
 					alert('Error(' + this.status +'): ' + e.error);
 				},
-				timeout:5000
+				timeout: requestTimeoutMillis
 			});
 			xhr.open('GET', baseUrl + 'path');
 			xhr.send();
@@ -32,7 +33,7 @@ function RestClient(){
 					Ti.API.debug(e.error);
 					alert('Error(' + this.status +'): ' + e.error + '; ' + this.responseText);
 				},
-				timeout:5000
+				timeout: requestTimeoutMillis
 			});
 			xhr.open('POST', baseUrl + path);
 			xhr.setRequestHeader('Content-Type', 'application/json');
@@ -51,7 +52,7 @@ function RestClient(){
 					Ti.API.debug(e.error);
 					alert('Error(' + this.status +'): ' + e.error);
 				},
-				timeout:5000
+				timeout: requestTimeoutMillis
 			});
 			xhr.open('PUT', baseUrl + path);
 			xhr.setRequestHeader('Content-Type', 'application/json');
