@@ -1,6 +1,6 @@
 function MainView() {
 	
-	var isAppleOS = false;
+	var isAppleOs = false;
 	
 	if (Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'ipad'){
 		isAppleOs = true;
