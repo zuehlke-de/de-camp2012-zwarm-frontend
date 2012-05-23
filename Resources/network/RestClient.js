@@ -2,7 +2,7 @@ function RestClient(){
 	var baseUrl = 'http://ec2-54-247-155-88.eu-west-1.compute.amazonaws.com:4711'; 
 	var requestTimeout = 10000;
 	
-	var createHttpClient = function() {
+	var createHttpClient = function(parserCallback) {
 		return Ti.Network.createHTTPClient({
 			onload: function(e) {
 				var jsonObject;
@@ -20,20 +20,20 @@ function RestClient(){
 	
 	return {
 		get: function (path, parserCallback) {
-			var httpClient = createHttpClient();
+			var httpClient = createHttpClient(parserCallback);
 			httpClient.open('GET', baseUrl + path);
 			httpClient.send();
 		},
 		
 		post: function (path, jsonData, parserCallback) {
-			var httpClient = createHttpClient();
+			var httpClient = createHttpClient(parserCallback);
 			httpClient.open('POST', baseUrl + path);
 			httpClient.setRequestHeader('Content-Type', 'application/json');
 			httpClient.send(JSON.stringify(jsonData));
 		},
 		
 		put: function (path, jsonData, parserCallback) {
-			var httpClient = createHttpClient();
+			var httpClient = createHttpClient(parserCallback);
 			httpClient.open('PUT', baseUrl + path);
 			httpClient.setRequestHeader('Content-Type', 'application/json');
 			httpClient.send(JSON.stringify(jsonData));
