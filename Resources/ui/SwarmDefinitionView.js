@@ -31,7 +31,7 @@ function SwarmDefinitionView() {
 	validFromLabel.addEventListener('click',function(e){
 		
 		var DatePicker = require('ui/DatePickerView');
-		var my_datePicker = new DatePicker(datePickedHandler, validFromLabel.text.substring(6));
+		var my_datePicker = new DatePicker(dateNow, datePickedHandler);
 		my_datePicker.open();
 		
 	});
