@@ -98,24 +98,42 @@ function SwarmDefinitionView() {
 	
 	// Radius:	
 	
-	var waitingTimeLabel = Ti.UI.createLabel({text:"Within: 300m", width:tableCellWidth, left:gapLeft});
-	row = Ti.UI.createTableViewRow({hasChild:true});
-	row.add(waitingTimeLabel);
+	var radiusLabel = Ti.UI.createLabel({text:"Within: ", width:tableCellWidth, left:gapLeft});
+	var radiusTextField = Ti.UI.createTextField({width: '20%', left:'20%', textAlign:Ti.UI.TEXT_ALIGNMENT_RIGHT, keyboardType:Ti.UI.KEYBOARD_NUMBER_PAD})
+	var mLabel = Ti.UI.createLabel({text:"meter", width:tableCellWidth, left:'45%'})
+	radiusTextField.value=300;
+	// hinttext does not work, if alignment = right!
+	
+	row = Ti.UI.createTableViewRow({hasChild:false});
+	row.add(radiusLabel);
+	row.add(radiusTextField);
+	row.add(mLabel);
 	rows.push(row);
 	
 	// Min Participants:	
 	
-	var waitingTimeLabel = Ti.UI.createLabel({text:"Min. participants: 30", width:tableCellWidth, left:gapLeft});
-	row = Ti.UI.createTableViewRow({hasChild:true});
-	row.add(waitingTimeLabel);
+	var minParticipantLabel = Ti.UI.createLabel({text:"Min. participants:", width:tableCellWidth, left:gapLeft});
+	var minParticipantTextField = Ti.UI.createTextField({width: '20%',left:'40%', textAlign:Ti.UI.TEXT_ALIGNMENT_RIGHT,keyboardType:Ti.UI.KEYBOARD_NUMBER_PAD});
+	minParticipantTextField.value = 30;
+	// hinttext does not work, if alignment = right!
+		
+	row = Ti.UI.createTableViewRow({hasChild:false});
+	row.add(minParticipantLabel);
+	row.add(minParticipantTextField);
 	rows.push(row);
 	
-	// Max participants:	
+	// Min Participants:	
 	
-	var waitingTimeLabel = Ti.UI.createLabel({text:"Max. participants: 60", width:tableCellWidth, left:gapLeft});
-	row = Ti.UI.createTableViewRow({hasChild:true});
-	row.add(waitingTimeLabel);
+	var maxParticipantLabel = Ti.UI.createLabel({text:"Max. participants:", width:tableCellWidth, left:gapLeft});
+	var maxParticipantTextField = Ti.UI.createTextField({width: '20%',left:'40%', textAlign:Ti.UI.TEXT_ALIGNMENT_RIGHT,keyboardType:Ti.UI.KEYBOARD_NUMBER_PAD});
+	maxParticipantTextField.value = 60;
+	// hinttext does not work, if alignment = right!
+		
+	row = Ti.UI.createTableViewRow({hasChild:false});
+	row.add(maxParticipantLabel);
+	row.add(maxParticipantTextField);
 	rows.push(row);
+	
 	
 	
 	var publishButton = Ti.UI.createButton({
@@ -124,7 +142,11 @@ function SwarmDefinitionView() {
 									
 	publishButton.addEventListener('click',function(e){
 									var sendObject = {};
-									if(nameTextField.value.length>0 && taskTextField.value.length>0){
+									if(nameTextField.value.length>0
+											&& taskTextField.value.length>0
+											&&minParticipantTextField.value.length>0
+											&&maxParticipantTextField.value.length>0
+											&&radiusTextField.value.length>0) {
 										sendObject.active = true;
 										sendObject.title = nameTextField.value;
 										sendObject.task = taskTextField.value;
@@ -132,9 +154,10 @@ function SwarmDefinitionView() {
 										sendObject.validUntil = dateUntil.getTime();
 										sendObject.waitingTime = 180;
 										sendObject.duration = 60;
-										sendObject.minParticipants = 30;
-										sendObject.maxParticipants = 60;
-										sendObject.radius = 300;
+										sendObject.minParticipants = minParticipantTextField.value;
+										sendObject.maxParticipants = maxParticipantTextField.value;
+										sendObject.radius = radiusTextField.value;
+										sendObject.ownerId = Ti.App.Properties.getString('user.id');
 
 										var SwarmClient = require('network/SwarmClient');
 										var my_swarmClient = new SwarmClient();
