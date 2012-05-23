@@ -24,6 +24,20 @@ var openMainView = function() {
 	locationHelper.start();
 }
 
+// register for location changes
+Ti.App.addEventListener('zwarm.location.updated', function(coords) {
+	var SwarmClient = require('network/SwarmClient'),
+		swarmClient = new SwarmClient(),
+		userId = Ti.App.Properties.getString('user.id');
+	if (userId) {
+		swarmClient.updateUserLocation(userId, {
+			timestamp : coords.timestamp,
+			latitude : coords.latitude,
+			longitude : coords.longitude
+		});
+	}
+});
+
 if (!Ti.App.Properties.hasProperty('user.id')) {
 	openInitView();
 } else {
