@@ -212,7 +212,8 @@ function SwarmDefinitionView() {
 		width:'100%',
 		top:'2%',
 		separatorColor: 'transparent',
-		data: rows
+		data: rows,
+		scrollable : false
 	});
 
 	scrollview.add(tableView);
