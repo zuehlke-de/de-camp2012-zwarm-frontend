@@ -30,7 +30,8 @@ function DatePickerView(initialDate, callback) {
 	timePicker.addEventListener('change', function(e) {
 		date.setHours(e.getHours());
 		date.setMinutes(e.getMinutes());
-		date.setSeconds(e.getSeconds());
+		date.setSeconds(0);
+		date.setMilliSeconds(0);
 	});
 	
 	var buttonContainer = Ti.UI.createView({
