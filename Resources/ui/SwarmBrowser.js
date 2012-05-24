@@ -11,7 +11,7 @@ function SwarmBrowser(){
 	var SwarmListView = require('/ui/SwarmListView');
 	
 	self.openSwarmDefinitionView = function(swarmDef) {
-		var swarmListView = new SwarmListView(e.rowData);
+		var swarmListView = new SwarmListView(swarmDef);
 		swarmListView.containingTab = self.containingTab;
 		self.containingTab.open(swarmListView);
 		return swarmListView;
