@@ -2,7 +2,7 @@ var Cloud = require('ti.cloud');
 Cloud.debug = true;  // optional; if you add this line, set it to false for production
 
 // this sets the background color of the master UIView (when there are no windows/tab groups on it)
-Titanium.UI.setBackgroundColor('#000');
+Titanium.UI.setBackgroundColor('#FFFFFF');
 
 var LocationHelper = require('lib/LocationHelper');
 var locationHelper = new LocationHelper();
