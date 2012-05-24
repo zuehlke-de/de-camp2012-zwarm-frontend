@@ -40,18 +40,22 @@ function MainView() {
 	});
 	swarmBrowser.containingTab = allSwarmsTab;
 	
-	var SwarmView = require('/ui/SwarmView');
-	var swarmView = new SwarmView();
-	var swarmViewTab = Ti.UI.createTab({
-		title: 'SwarmView',
-		window: swarmView
+	var SwarmClient = require('/network/SwarmClient');
+	var swarmClient = new SwarmClient();
+	swarmClient.getSwarmById(100, function(swarm) {
+		var SwarmView = require('/ui/SwarmView');
+		var swarmView = new SwarmView(swarm);
+		var swarmViewTab = Ti.UI.createTab({
+			title: 'SwarmView',
+			window: swarmView
+		});
+		swarmView.containingTab = swarmViewTab;
+		self.addTab(swarmViewTab);
 	});
-	swarmView.containingTab = swarmViewTab;
 	
 	self.addTab(mapTab);
 	self.addTab(newSwarmTab);
 	self.addTab(allSwarmsTab);
-	self.addTab(swarmViewTab);
 	
 	return self;
 	
