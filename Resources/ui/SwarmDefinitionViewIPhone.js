@@ -14,21 +14,23 @@ function SwarmDefinitionView() {
 
 	// Title:	
  
-	var nameTextField = Ti.UI.createTextField({title:"Name", hintText:'Name', width: tableCellWidth});
+	var nameTextField = Ti.UI.createTextField({title:"Name",
+        borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED, hintText:'Name', top: 10 , width: tableCellWidth});
 	var row = Ti.UI.createTableViewRow()
 	row.add(nameTextField);
 	rows.push(row);
 
 	// Task:	
 	
-	var taskTextField = Ti.UI.createTextField({title:"Task", hintText:'Task', width:tableCellWidth});
+	var taskTextField = Ti.UI.createTextField({title:"Task",
+        borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED, hintText:'Task', top:10, width:tableCellWidth});
 	var row = Ti.UI.createTableViewRow();
 	row.add(taskTextField);
 	rows.push(row);
 	
 	
 	Titanium.include('/util/DateFormat.js');
-	var DatePicker = require('ui/DatePickerView');
+	var DatePicker = require('ui/DatePickerViewIPhone');
 		
 
 	// DateFrom:	
@@ -37,66 +39,91 @@ function SwarmDefinitionView() {
 	
 	var datePickedHandler = function(date){
 		dateFrom = date;
-		validFromLabel.text="From: " + date.format(displayDateFormat);
+		validFromButton.title="From: " + date.format(displayDateFormat);
 		if(dateUntil.getTime()<dateFrom.getTime()){
+			alert("Corrected end time!");
 			dateUntil = date;
-			validUntilLabel.text = "Until: " + date.format(displayDateFormat);
+			validUntilButton.title = "Until: " + date.format(displayDateFormat);
 		}
 	}
 	
-	var validFromLabel = Ti.UI.createLabel({text:"From: " + dateFrom.format(displayDateFormat), width:tableCellWidth, left:gapLeft, hasChild:true});
-	validFromLabel.addEventListener('click',function(e){
+	var validFromButton = Ti.UI.createButton({ top: 10 ,title:"From: " + dateFrom.format(displayDateFormat), textAlign:Ti.UI.TEXT_ALIGNMENT_LEFT, width:tableCellWidth, left:gapLeft, hasChild:true});
+	validFromButton.addEventListener('click',function(e){
 		
 		var my_datePickerFrom = new DatePicker(dateFrom, datePickedHandler);
 		my_datePickerFrom.open();
 		
 	});
-	row = Ti.UI.createTableViewRow({hasChild:true});
-	row.add(validFromLabel);
+	row = Ti.UI.createTableViewRow({hasChild:false});
+	row.add(validFromButton);
 	rows.push(row);
 	
 	//DateUntil:	
 	
-	var dateUntil = new Date();
+	var dateUntil = new Date()
+	dateUntil.setTime(dateUntil.getTime() + 24*60*60*1000)
 	
 	var datePickedHandlerUntil = function(date){
 		dateUntil = date;
-		validUntilLabel.text="Until: " + date.format(displayDateFormat);
+		validUntilButton.title="Until: " + date.format(displayDateFormat);
 		if(dateUntil.getTime()<dateFrom.getTime()){
+			alert("Corrected start time!");
 			dateFrom = date;
-			validFromLabel.text = "From: " + date.format(displayDateFormat);
+			validFromButton.title = "From: " + date.format(displayDateFormat);
 		}
 	}
 	
-	var validUntilLabel = Ti.UI.createLabel({text:"Until: " + dateUntil.format(displayDateFormat), width:tableCellWidth, left:gapLeft, hasChild:true});
-	validUntilLabel.addEventListener('click',function(e){
+	var validUntilButton = Ti.UI.createButton({ top: 10 ,title:"Until: " + dateUntil.format(displayDateFormat), textAlign:Ti.UI.TEXT_ALIGNMENT_LEFT, width:tableCellWidth, left:gapLeft, hasChild:true});
+	validUntilButton.addEventListener('click',function(e){
 		
 		var my_datePickerUntil = new DatePicker(dateUntil, datePickedHandlerUntil);
 		my_datePickerUntil.open();
 		
 	});
-	row = Ti.UI.createTableViewRow({hasChild:true});
-	row.add(validUntilLabel);
+	row = Ti.UI.createTableViewRow({hasChild:false});
+	row.add(validUntilButton);
 	rows.push(row);
 	
-	// Waiting Time:	
+	// Waiting Time Slider:	
+	var waitingTimeMin = 5;
 	
-	var waitingTimeLabel = Ti.UI.createLabel({text:"Wait: 3:00 Minutes", width:tableCellWidth, left:gapLeft});
-	row = Ti.UI.createTableViewRow({hasChild:true});
-	row.add(waitingTimeLabel);
+	var sliderLabelWaiting = Ti.UI.createLabel({text:"Wait: "+waitingTimeMin+" Minutes",width:'45%', left:gapLeft })
+	var sliderWaiting = Ti.UI.createSlider({ top: 10 ,min:1, max: 60, value:3, width:'45%',left:'50%'});
+	sliderWaiting.addEventListener('change', function(e){
+		waitingTimeMin = e.value;
+		if(waitingTimeMin <2){
+			sliderLabelWaiting.text = "Wait: 1 Minute";
+		} else {
+			sliderLabelWaiting.text = "Wait: "+Math.floor(waitingTimeMin)+" Minutes";
+		}
+	});
+	
+	row = Ti.UI.createTableViewRow();
+	row.add(sliderLabelWaiting);
+	row.add(sliderWaiting);
 	rows.push(row);
 	
 	// Duration Slider:
+	var durationMin = 5;
 	
-	var sliderLabel = Ti.UI.createLabel({text:"Duration: 60 Seconds",width:'45%', left:gapLeft })
-	var slider = Ti.UI.createSlider({min:0, max: 300, value:60, width:'45%',left:'50%'});
+	var sliderLabel = Ti.UI.createLabel({text:"Duration: "+durationMin+" Minutes",width:'45%', left:gapLeft })
+	var slider = Ti.UI.createSlider({ top: 10 ,min:1, max: 120, value:5, width:'45%',left:'50%'});
+	slider.addEventListener('change', function(e){
+		durationMin = e.value;
+		if(durationMin < 2){
+			sliderLabel.text = "Duration: 1 Minute";
+		} else {
+			sliderLabel.text = "Duration: "+Math.floor(durationMin)+" Minutes";
+		}
+	});
+	
 	row = Ti.UI.createTableViewRow();
 	row.add(sliderLabel);
 	row.add(slider);
 	rows.push(row);
 	
 	// Location:
-	var waitingTimeLabel = Ti.UI.createLabel({text:"Location: None", width:tableCellWidth, left:gapLeft});
+	var waitingTimeLabel = Ti.UI.createLabel({ top: 10 ,text:"Location: None", width:tableCellWidth, left:gapLeft});
 	row = Ti.UI.createTableViewRow({hasChild:false});
 	row.add(waitingTimeLabel);
 	rows.push(row);
@@ -106,9 +133,10 @@ function SwarmDefinitionView() {
 	
 	// Radius:	
 	
-	var radiusLabel = Ti.UI.createLabel({text:"Within: ", width:tableCellWidth, left:gapLeft});
-	var radiusTextField = Ti.UI.createTextField({width: '20%', left:'20%', textAlign:Ti.UI.TEXT_ALIGNMENT_RIGHT, keyboardType:Ti.UI.KEYBOARD_NUMBER_PAD})
-	var mLabel = Ti.UI.createLabel({text:"meter", width:tableCellWidth, left:'45%'})
+	var radiusLabel = Ti.UI.createLabel({ top: 10 ,text:"Within: ", width:tableCellWidth, left:gapLeft});
+	var radiusTextField = Ti.UI.createTextField({
+        borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,top: 10 ,width: '20%', left:'23%', textAlign:Ti.UI.TEXT_ALIGNMENT_RIGHT, keyboardType:Ti.UI.KEYBOARD_NUMBER_PAD})
+	var mLabel = Ti.UI.createLabel({ top: 10 ,text:"meter", width:tableCellWidth, left:'45%'})
 	radiusTextField.value=300;
 	// hinttext does not work, if alignment = right!
 	
@@ -120,8 +148,9 @@ function SwarmDefinitionView() {
 	
 	// Min Participants:	
 	
-	var minParticipantLabel = Ti.UI.createLabel({text:"Min. participants:", width:tableCellWidth, left:gapLeft});
-	var minParticipantTextField = Ti.UI.createTextField({width: '20%',left:'40%', textAlign:Ti.UI.TEXT_ALIGNMENT_RIGHT,keyboardType:Ti.UI.KEYBOARD_NUMBER_PAD});
+	var minParticipantLabel = Ti.UI.createLabel({top: 10 ,text:"Min. participants:", width:tableCellWidth, left:gapLeft});
+	var minParticipantTextField = Ti.UI.createTextField({
+        borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,top: 10 ,width: '20%',left:'48%', textAlign:Ti.UI.TEXT_ALIGNMENT_RIGHT,keyboardType:Ti.UI.KEYBOARD_NUMBER_PAD});
 	minParticipantTextField.value = 30;
 	// hinttext does not work, if alignment = right!
 		
@@ -132,8 +161,9 @@ function SwarmDefinitionView() {
 	
 	// Min Participants:	
 	
-	var maxParticipantLabel = Ti.UI.createLabel({text:"Max. participants:", width:tableCellWidth, left:gapLeft});
-	var maxParticipantTextField = Ti.UI.createTextField({width: '20%',left:'40%', textAlign:Ti.UI.TEXT_ALIGNMENT_RIGHT,keyboardType:Ti.UI.KEYBOARD_NUMBER_PAD});
+	var maxParticipantLabel = Ti.UI.createLabel({top: 10 ,text:"Max. participants:", width:tableCellWidth, left:gapLeft});
+	var maxParticipantTextField = Ti.UI.createTextField({
+        borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,top: 10 ,width: '20%',left:'48%', textAlign:Ti.UI.TEXT_ALIGNMENT_RIGHT,keyboardType:Ti.UI.KEYBOARD_NUMBER_PAD});
 	maxParticipantTextField.value = 60;
 	// hinttext does not work, if alignment = right!
 		
@@ -142,29 +172,22 @@ function SwarmDefinitionView() {
 	row.add(maxParticipantTextField);
 	rows.push(row);
 	
-	
-	
 	var publishButton = Ti.UI.createButton({
+									top:10,
 									title:'Publish',
 									width:tableCellWidth});
 									
 	publishButton.addEventListener('click',function(e){
 									var sendObject = {};
-									
-									if(dateUntil.getTime()-dateFrom.getTime()<3600000){
-										alert('Validity Period must be longer than one hour.');
-									} else if(nameTextField.value.length>0
-											&& taskTextField.value.length>0
-											&&minParticipantTextField.value.length>0
-											&&maxParticipantTextField.value.length>0
-											&&radiusTextField.value.length>0) {
+									if(nameTextField.value.length>0
+											&& taskTextField.value.length>0) {
 										sendObject.active = true;
 										sendObject.title = nameTextField.value;
 										sendObject.task = taskTextField.value;
 										sendObject.validFrom = dateFrom.getTime();
 										sendObject.validUntil = dateUntil.getTime();
-										sendObject.waitingTime = 180;
-										sendObject.duration = 60;
+										sendObject.waitingTime = waitingTimeMin*60;
+										sendObject.duration = durationMin*60;
 										sendObject.minParticipants = minParticipantTextField.value;
 										sendObject.maxParticipants = maxParticipantTextField.value;
 										sendObject.radius = radiusTextField.value;
@@ -187,10 +210,11 @@ function SwarmDefinitionView() {
 	rows.push(row);
 	
 	var tableView = Ti.UI.createTableView({
-		style:Ti.UI.iPhone.TableViewStyle.GROUPED,
 		width:'100%',
-		top:'10%',
-		data: rows
+		top:'2%',
+		separatorColor: 'transparent',
+		data: rows,
+		scrollable : true
 	});
 
 	scrollview.add(tableView);

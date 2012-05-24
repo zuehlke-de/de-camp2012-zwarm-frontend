@@ -7,8 +7,6 @@ Titanium.UI.setBackgroundColor('#FFFFFF');
 var LocationHelper = require('lib/LocationHelper');
 var locationHelper = new LocationHelper();
 
-
-
 var openInitView = function() {
 	var InitView = require('ui/InitView');
 	var view = new InitView();
@@ -37,6 +35,17 @@ if (osname === 'ios') {
 	var PushNotificationService = require('/network/ios/PushNotificationService');
 	new PushNotificationService();
 }
+
+
+if(osname === 'android') {
+	var PushNotificationService = require('network/android/PushNotificationService');
+	var pushNotificationService = new PushNotificationService(function(evt) {
+		// evt.payload should be a swarmId
+		// TODO get additional swarm data and open the SwarmView instead
+		Ti.API.info('PushNotification received: ' + evt.payload);
+	});
+}
+
 
 // register for location changes
 Ti.App.addEventListener('zwarm.location.updated', function(coords) {
